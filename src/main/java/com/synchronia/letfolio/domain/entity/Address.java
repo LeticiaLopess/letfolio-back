@@ -11,7 +11,7 @@ import java.time.Instant;
 public class Address implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String zipCode;
     private String street;
