@@ -1,6 +1,7 @@
 package com.synchronia.letfolio.domain.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.synchronia.letfolio.domain.enumeration.Role;
 import jakarta.persistence.*;
 
 import java.io.Serializable;

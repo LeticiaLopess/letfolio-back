@@ -1,9 +1,8 @@
-package com.synchronia.letfolio.application.exception;
+package com.synchronia.letfolio.presentation.exception;
 
 public class SynchroniaException extends Exception {
 
     private int statusCode;
-
 
     public SynchroniaException(String message) {
         super(message);

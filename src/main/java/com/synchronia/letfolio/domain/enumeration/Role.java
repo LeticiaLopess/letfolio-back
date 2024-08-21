@@ -1,4 +1,4 @@
-package com.synchronia.letfolio.domain.entity;
+package com.synchronia.letfolio.domain.enumeration;
 
 public enum Role {
 
