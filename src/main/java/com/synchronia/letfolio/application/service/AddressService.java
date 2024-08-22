@@ -53,6 +53,7 @@ public class AddressService {
         try {
             Address entity = repository.getReferenceById(id);
             updateData(entity, address);
+
             return repository.save(entity);
 
         } catch (EntityNotFoundException e) {

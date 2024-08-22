@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Entity
@@ -29,7 +30,7 @@ public class User implements Serializable {
     private Instant creationDate;
 
     @JsonIgnore
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, optional = true)
     private Address address;
 
     @ElementCollection
@@ -136,9 +137,45 @@ public class User implements Serializable {
         return courses;
     }
 
-    public List<Integer> getRoleCodes() {
-        return roles.stream()
-                .map(Role::getCode)
-                .collect(Collectors.toList());
+    public void addCourse(Course course) {
+        if (!courses.contains(course)) {
+            courses.add(course);
+            course.getUsers().add(this);
+        }
     }
+
+    public void removeCourse(Course course) {
+        if (courses.contains(course)) {
+            courses.remove(course);
+            course.getUsers().remove(this);
+        }
+    }
+
+    public List<Integer> getRoleCodes() {
+        return roles.stream().map(Role::getCode).collect(Collectors.toList());
+    }
+
+    public void addRole(Role role) {
+        if (!roles.contains(role)) {
+            roles.add(role);
+        }
+    }
+
+    public void removeRole(Role role) {
+        roles.remove(role);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
 }

@@ -54,6 +54,7 @@ public class CourseService {
         try {
             Course entity = repository.getReferenceById(id);
             updateData(entity, course);
+
             return repository.save(entity);
 
         } catch (EntityNotFoundException e) {

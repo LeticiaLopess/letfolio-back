@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "tb_course")
@@ -19,6 +20,7 @@ public class Course implements Serializable {
     private String title;
     private String description;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Note> notes;
 
@@ -73,8 +75,36 @@ public class Course implements Serializable {
         return notes;
     }
 
+    public void addNote(Note note) {
+        if (!notes.contains(note)) {
+            notes.add(note);
+            note.setCourse(this);
+        }
+    }
+
+    public void removeNote(Note note) {
+        if (notes.contains(note)) {
+            notes.remove(note);
+            note.setCourse(null);
+        }
+    }
+
     public List<User> getUsers() {
         return users;
+    }
+
+    public void addUser(User user) {
+        if (!users.contains(user)) {
+            users.add(user);
+            user.getCourses().add(this);
+        }
+    }
+
+    public void removeUser(User user) {
+        if (users.contains(user)) {
+            users.remove(user);
+            user.getCourses().remove(this);
+        }
     }
 
     public Instant getCompletionDate() {
@@ -91,5 +121,18 @@ public class Course implements Serializable {
 
     public void setCreationDate(Instant creationDate) {
         this.creationDate = creationDate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Course course = (Course) o;
+        return Objects.equals(id, course.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
