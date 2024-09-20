@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -24,13 +25,13 @@ public class User implements Serializable {
     private String phoneNumber;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
-    private String birthDate;
+    private Instant birthDate;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
     private Instant creationDate;
 
     @JsonIgnore
-    @OneToOne(cascade = CascadeType.ALL, optional = true)
+    @OneToOne(cascade = CascadeType.MERGE, optional = true)
     private Address address;
 
     @ElementCollection
@@ -45,7 +46,7 @@ public class User implements Serializable {
     public User() {
     }
 
-    public User(Long id, String username, String password, String name, String mail, String phoneNumber, String birthDate, Instant creationDate, Address address) {
+    public User(Long id, String username, String password, String name, String mail, String phoneNumber, Instant birthDate, Instant creationDate, Address address) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -55,6 +56,8 @@ public class User implements Serializable {
         this.birthDate = birthDate;
         this.creationDate = creationDate;
         this.address = address;
+        this.roles = new ArrayList<>();
+        this.courses = new ArrayList<>();
     }
 
     public Long getId() {
@@ -105,11 +108,11 @@ public class User implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getBirthDate() {
+    public Instant getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(String birthDate) {
+    public void setBirthDate(Instant birthDate) {
         this.birthDate = birthDate;
     }
 

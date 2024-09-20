@@ -21,7 +21,7 @@ public class Course implements Serializable {
     private String description;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "course", cascade = CascadeType.MERGE, orphanRemoval = true)
     private List<Note> notes;
 
     @JsonIgnore
@@ -45,6 +45,7 @@ public class Course implements Serializable {
         this.completionDate = completionDate;
         this.creationDate = creationDate;
         this.notes = new ArrayList<>();
+        this.users = new ArrayList<>();
     }
 
     public Long getId() {

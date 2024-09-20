@@ -9,6 +9,7 @@ public class AddressDTO implements Serializable {
     private String zipCode;
     private String street;
     private String number;
+    private String complement;
     private String neighborhood;
     private String city;
     private String uf;
@@ -19,10 +20,11 @@ public class AddressDTO implements Serializable {
     public AddressDTO() {
     }
 
-    public AddressDTO(String zipCode, String street, String number, String neighborhood, String city, String uf, Instant creationDate) {
+    public AddressDTO(String zipCode, String street, String number, String complement, String neighborhood, String city, String uf, Instant creationDate) {
         this.zipCode = zipCode;
         this.street = street;
         this.number = number;
+        this.complement = complement;
         this.neighborhood = neighborhood;
         this.city = city;
         this.uf = uf;
@@ -51,6 +53,14 @@ public class AddressDTO implements Serializable {
 
     public void setNumber(String number) {
         this.number = number;
+    }
+
+    public String getComplement() {
+        return complement;
+    }
+
+    public void setComplement(String complement) {
+        this.complement = complement;
     }
 
     public String getNeighborhood() {

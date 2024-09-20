@@ -1,43 +1,19 @@
 package com.synchronia.letfolio.domain.enumeration;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public enum Role {
 
-    ADMIN(1),
-    USER( 2),
-    GUEST(3);
+    ADMIN(1, "ADMIN", "Administrator"),
+    USER(2, "USER", "User"),
+    GUEST(3, "GUEST", "Guest");
 
+    private final int code;
     private final String name;
     private final String description;
-    private final int code;
 
-    private static final Map<Integer, String> codeToName = new HashMap<>();
-    private static final Map<Integer, String> codeToDescription = new HashMap<>();
-
-    static {
-        codeToName.put(1, "ADMIN");
-        codeToName.put(2, "USER");
-        codeToName.put(3, "GUEST");
-
-        codeToDescription.put(1, "Administrator");
-        codeToDescription.put(2, "User");
-        codeToDescription.put(3, "Guest");
-    }
-
-    Role(int code) {
+    Role(int code, String name, String description) {
         this.code = code;
-        this.name = initializeName(code);
-        this.description = initializeDescription(code);
-    }
-
-    private static String initializeName(int code) {
-        return codeToName.get(code);
-    }
-
-    private static String initializeDescription(int code) {
-        return codeToDescription.get(code);
+        this.name = name;
+        this.description = description;
     }
 
     public String getDescription() {
@@ -46,6 +22,10 @@ public enum Role {
 
     public int getCode() {
         return code;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public static Role fromCode(int code) {

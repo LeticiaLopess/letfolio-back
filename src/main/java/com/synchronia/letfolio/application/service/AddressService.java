@@ -64,6 +64,7 @@ public class AddressService {
     private void updateData(Address entity, Address address) {
         updateIfPresent(entity::setStreet, address.getStreet());
         updateIfPresent(entity::setNumber, address.getNumber());
+        updateIfPresent(entity::setComplement, address.getComplement());
         updateIfPresent(entity::setNeighborhood, address.getNeighborhood());
         updateIfPresent(entity::setCity, address.getCity());
         updateIfPresent(entity::setUf, address.getUf());

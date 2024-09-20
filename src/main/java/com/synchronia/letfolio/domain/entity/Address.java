@@ -17,11 +17,12 @@ public class Address implements Serializable {
     private String zipCode;
     private String street;
     private String number;
+    private String complement;
     private String neighborhood;
     private String city;
     private String uf;
 
-    @OneToOne(mappedBy = "address", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "address", cascade = CascadeType.MERGE)
     User user;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
@@ -30,11 +31,12 @@ public class Address implements Serializable {
     public Address() {
     }
 
-    public Address(Long id, String zipCode, String street, String number, String neighborhood, String city, String uf, Instant creationDate) {
+    public Address(Long id, String zipCode, String street, String number, String complement, String neighborhood, String city, String uf, Instant creationDate) {
         this.id = id;
         this.zipCode = zipCode;
         this.street = street;
         this.number = number;
+        this.complement = complement;
         this.neighborhood = neighborhood;
         this.city = city;
         this.uf = uf;
@@ -71,6 +73,14 @@ public class Address implements Serializable {
 
     public void setNumber(String number) {
         this.number = number;
+    }
+
+    public String getComplement() {
+        return complement;
+    }
+
+    public void setComplement(String complement) {
+        this.complement = complement;
     }
 
     public String getNeighborhood() {
